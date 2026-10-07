@@ -1,0 +1,2369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday Celebration Journey</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Dancing+Script:wght@600;700&family=Outfit:wght@300;400;500;600;700;800&family=Pacifico&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              gold: '#f59e0b',
+              amber: '#d97706',
+              pink: '#ec4899',
+              rose: '#f43f5e',
+              purple: '#8b5cf6',
+              dark: '#0a0b16'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Canvas Confetti CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <!-- Custom Stylesheet Placeholder -->
+  <style id="app-style">
+/* ==========================================================================
+   Birthday Celebration Website - Custom Styles & Animations
+   ========================================================================== */
+
+:root {
+  --primary-gold: #f59e0b;
+  --secondary-gold: #fbbf24;
+  --accent-pink: #ec4899;
+  --accent-purple: #8b5cf6;
+  --night-sky-1: #090a15;
+  --night-sky-2: #14172b;
+  --night-sky-3: #1e1b4b;
+  --card-glass: rgba(255, 255, 255, 0.08);
+  --card-border: rgba(255, 255, 255, 0.15);
+}
+
+/* Base & Typography */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background: radial-gradient(circle at 50% 20%, #1e1b4b 0%, #0d0e1f 50%, #06070d 100%);
+  color: #f8fafc;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+.font-handwriting {
+  font-family: 'Pacifico', cursive;
+}
+
+.font-serif-luxury {
+  font-family: 'Cinzel', serif;
+}
+
+/* Starry Background */
+.stars-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  background-image: 
+    radial-gradient(2px 2px at 20px 30px, #ffffff, rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 40px 70px, #ffd700, rgba(0,0,0,0)),
+    radial-gradient(1px 1px at 90px 40px, #ffffff, rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 160px 120px, #ffb6c1, rgba(0,0,0,0)),
+    radial-gradient(1.5px 1.5px at 230px 190px, #ffffff, rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 290px 70px, #87ceeb, rgba(0,0,0,0)),
+    radial-gradient(1px 1px at 340px 150px, #ffffff, rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 420px 90px, #ffd700, rgba(0,0,0,0)),
+    radial-gradient(1.5px 1.5px at 510px 220px, #ffffff, rgba(0,0,0,0));
+  background-repeat: repeat;
+  background-size: 550px 350px;
+  opacity: 0.65;
+  animation: twinkle 6s ease-in-out infinite alternate;
+}
+
+@keyframes twinkle {
+  0% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.02); }
+  100% { opacity: 0.5; transform: scale(1); }
+}
+
+/* Glassmorphism Classes */
+.glass-panel {
+  background: rgba(22, 24, 45, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--card-border);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.glass-panel-glow {
+  background: rgba(26, 29, 58, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  box-shadow: 0 0 40px rgba(245, 158, 11, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+/* Text Glow Effects */
+.glow-gold {
+  text-shadow: 0 0 15px rgba(245, 158, 11, 0.6), 0 0 35px rgba(251, 191, 36, 0.4);
+}
+
+.glow-pink {
+  text-shadow: 0 0 15px rgba(236, 72, 153, 0.7), 0 0 30px rgba(244, 114, 182, 0.4);
+}
+
+/* Page Transition System */
+.page-container {
+  position: relative;
+  width: 100%;
+  min-height: calc(100vh - 120px);
+}
+
+.story-page {
+  display: none;
+  opacity: 0;
+  transform: translateY(24px) scale(0.98);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  width: 100%;
+}
+
+.story-page.active-page {
+  display: block;
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  animation: pageEnter 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes pageEnter {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Digital Countdown Clock */
+.digit-box {
+  background: linear-gradient(180deg, #1f2445 0%, #121426 100%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), inset 0 2px 0 rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.digit-box::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.4);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+/* Balloons Layer */
+#balloons-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 99999;
+  overflow: hidden;
+}
+
+.balloon {
+  position: absolute;
+  top: 105vh;
+  cursor: pointer;
+  pointer-events: auto;
+  user-select: none;
+  filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.35));
+  will-change: transform;
+  animation: floatUpward linear forwards;
+}
+
+.balloon:hover {
+  transform: scale(1.1) !important;
+}
+
+.balloon-body {
+  width: 65px;
+  height: 80px;
+  border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+  position: relative;
+  box-shadow: inset 10px 10px 20px rgba(255, 255, 255, 0.45), inset -10px -10px 20px rgba(0, 0, 0, 0.35);
+  transform-origin: center bottom;
+}
+
+.balloon-highlight {
+  position: absolute;
+  top: 12px;
+  left: 14px;
+  width: 14px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.7);
+  transform: rotate(-25deg);
+}
+
+.balloon-knot {
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 12px;
+  height: 8px;
+  border-radius: 3px;
+}
+
+.balloon-string {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  width: 2px;
+  height: 75px;
+  background: rgba(255, 255, 255, 0.5);
+  transform-origin: top center;
+  animation: swayString 2s ease-in-out infinite alternate;
+}
+
+@keyframes floatUpward {
+  0% {
+    transform: translateY(0) translateX(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-35vh) translateX(-18px) rotate(-4deg);
+  }
+  50% {
+    transform: translateY(-70vh) translateX(18px) rotate(4deg);
+  }
+  75% {
+    transform: translateY(-105vh) translateX(-14px) rotate(-3deg);
+  }
+  100% {
+    transform: translateY(-145vh) translateX(15px) rotate(3deg);
+  }
+}
+
+@keyframes swayString {
+  0% { transform: rotate(-5deg); }
+  100% { transform: rotate(5deg); }
+}
+
+.balloon.popping {
+  animation: popEffect 0.25s forwards !important;
+}
+
+@keyframes popEffect {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.5); opacity: 0.8; }
+  100% { transform: scale(0); opacity: 0; }
+}
+
+/* Polaroid Photo Card Styles */
+.polaroid-card {
+  background: #ffffff;
+  color: #1f2937;
+  padding: 12px 12px 24px 12px;
+  border-radius: 6px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  cursor: pointer;
+}
+
+.polaroid-card:hover {
+  transform: translateY(-8px) scale(1.03) rotate(0deg) !important;
+  box-shadow: 0 20px 45px rgba(245, 158, 11, 0.25), 0 8px 16px rgba(0, 0, 0, 0.35);
+  z-index: 10;
+}
+
+.polaroid-img-wrapper {
+  aspect-ratio: 4 / 3;
+  width: 100%;
+  overflow: hidden;
+  background: #f3f4f6;
+  border-radius: 3px;
+  position: relative;
+}
+
+.polaroid-img-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.polaroid-card:hover .polaroid-img-wrapper img {
+  transform: scale(1.08);
+}
+
+.tape-strip {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90px;
+  height: 24px;
+  background: rgba(254, 240, 138, 0.65);
+  backdrop-filter: blur(2px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  border-left: 2px dashed rgba(202, 138, 4, 0.4);
+  border-right: 2px dashed rgba(202, 138, 4, 0.4);
+}
+
+/* Interactive Envelope Styles */
+.envelope-wrapper {
+  perspective: 1000px;
+}
+
+.envelope {
+  position: relative;
+  width: 320px;
+  height: 220px;
+  background: #db2777;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease;
+}
+
+@media (min-width: 640px) {
+  .envelope {
+    width: 440px;
+    height: 280px;
+  }
+}
+
+.envelope:hover {
+  transform: translateY(-5px);
+}
+
+.envelope-flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-left: 160px solid transparent;
+  border-right: 160px solid transparent;
+  border-top: 130px solid #be185d;
+  transform-origin: top;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 5;
+}
+
+@media (min-width: 640px) {
+  .envelope-flap {
+    border-left: 220px solid transparent;
+    border-right: 220px solid transparent;
+    border-top: 160px solid #be185d;
+  }
+}
+
+.envelope.open .envelope-flap {
+  transform: rotateX(180deg);
+  z-index: 1;
+}
+
+.envelope-pocket {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-left: 160px solid #9d174d;
+  border-right: 160px solid #9d174d;
+  border-top: 110px solid transparent;
+  border-bottom: 110px solid #831843;
+  border-radius: 0 0 8px 8px;
+  z-index: 3;
+}
+
+@media (min-width: 640px) {
+  .envelope-pocket {
+    border-left: 220px solid #9d174d;
+    border-right: 220px solid #9d174d;
+    border-top: 140px solid transparent;
+    border-bottom: 140px solid #831843;
+  }
+}
+
+.envelope-letter {
+  position: absolute;
+  bottom: 10px;
+  left: 15px;
+  right: 15px;
+  height: 190px;
+  background: #fffdfa;
+  color: #1f2937;
+  border-radius: 6px;
+  padding: 16px;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.15);
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 2;
+  overflow: hidden;
+}
+
+@media (min-width: 640px) {
+  .envelope-letter {
+    height: 240px;
+    padding: 22px;
+  }
+}
+
+.envelope.open .envelope-letter {
+  transform: translateY(-130px);
+  z-index: 6;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+}
+
+.seal-stamp {
+  position: absolute;
+  top: 90px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #f59e0b 0%, #b45309 100%);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 20px;
+  z-index: 7;
+  transition: opacity 0.3s;
+}
+
+.envelope.open .seal-stamp {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Wish Sticky Notes */
+.wish-card {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+
+.wish-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+  z-index: 5;
+}
+
+.pin-tack {
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #f87171, #b91c1c);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.4);
+}
+
+/* Birthday Cake & Candles */
+.cake-container {
+  position: relative;
+  width: 260px;
+  height: 200px;
+  margin: 0 auto;
+}
+
+.cake-tier-top {
+  position: absolute;
+  bottom: 80px;
+  left: 45px;
+  width: 170px;
+  height: 70px;
+  background: linear-gradient(180deg, #fbcfe8 0%, #f472b6 60%, #db2777 100%);
+  border-radius: 14px 14px 10px 10px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.cake-tier-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 15px;
+  width: 230px;
+  height: 85px;
+  background: linear-gradient(180deg, #fef08a 0%, #facc15 50%, #eab308 100%);
+  border-radius: 16px 16px 12px 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+}
+
+.cake-icing-drip {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 20px;
+  background: #ffffff;
+  border-radius: 14px 14px 6px 6px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+.cake-plate {
+  position: absolute;
+  bottom: -15px;
+  left: -15px;
+  width: 290px;
+  height: 22px;
+  background: linear-gradient(90deg, #94a3b8, #e2e8f0, #94a3b8);
+  border-radius: 50%;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Candle & Flame */
+.candle {
+  position: absolute;
+  top: -35px;
+  width: 10px;
+  height: 40px;
+  background: repeating-linear-gradient(
+    45deg,
+    #ffffff,
+    #ffffff 5px,
+    #38bdf8 5px,
+    #38bdf8 10px
+  );
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.candle-flame {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 12px;
+  height: 22px;
+  background: radial-gradient(ellipse at bottom, #ffffff 0%, #fef08a 35%, #f97316 75%, #ef4444 100%);
+  border-radius: 50% 50% 35% 35% / 60% 60% 40% 40%;
+  box-shadow: 0 0 14px #fbbf24, 0 0 25px #f97316;
+  animation: flameFlicker 0.9s infinite alternate;
+  transform-origin: center bottom;
+  transition: opacity 0.4s, transform 0.4s;
+}
+
+.candle.blown .candle-flame {
+  opacity: 0;
+  transform: translateX(-50%) scale(0);
+}
+
+.candle-smoke {
+  position: absolute;
+  top: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 14px;
+  background: rgba(220, 220, 220, 0.6);
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.candle.blown .candle-smoke {
+  animation: smokeRise 1.8s forwards;
+}
+
+@keyframes flameFlicker {
+  0% { transform: translateX(-50%) rotate(-3deg) scaleY(1); }
+  50% { transform: translateX(-50%) rotate(3deg) scaleY(1.1); }
+  100% { transform: translateX(-50%) rotate(-2deg) scaleY(0.95); }
+}
+
+@keyframes smokeRise {
+  0% { opacity: 0.8; transform: translateX(-50%) translateY(0) scale(1); }
+  50% { opacity: 0.5; transform: translateX(-30%) translateY(-25px) scale(2.2); }
+  100% { opacity: 0; transform: translateX(20%) translateY(-50px) scale(3.5); }
+}
+
+/* Music Equalizer Bars */
+.eq-bar {
+  width: 3px;
+  background-color: #f59e0b;
+  border-radius: 2px;
+  animation: eqJump 0.8s ease-in-out infinite alternate;
+}
+
+.eq-bar:nth-child(1) { height: 12px; animation-delay: 0.1s; }
+.eq-bar:nth-child(2) { height: 18px; animation-delay: 0.3s; }
+.eq-bar:nth-child(3) { height: 8px; animation-delay: 0.2s; }
+.eq-bar:nth-child(4) { height: 14px; animation-delay: 0.4s; }
+
+.eq-paused .eq-bar {
+  animation-play-state: paused;
+  height: 4px !important;
+}
+
+@keyframes eqJump {
+  0% { height: 4px; }
+  100% { height: 18px; }
+}
+
+/* Pulsing Next Button */
+.btn-celebrate {
+  background: linear-gradient(135deg, #f59e0b 0%, #ec4899 50%, #8b5cf6 100%);
+  background-size: 200% 200%;
+  animation: gradientShift 4s ease infinite;
+  box-shadow: 0 10px 25px rgba(236, 72, 153, 0.4);
+}
+
+.btn-celebrate:hover {
+  box-shadow: 0 15px 35px rgba(245, 158, 11, 0.6);
+  transform: translateY(-2px);
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Modal Backdrop */
+.modal-overlay {
+  background: rgba(4, 6, 17, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #090a15;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #312e81;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #4f46e5;
+}
+
+</style>
+</head>
+<body class="bg-[#090a15] text-slate-100 min-h-screen relative selection:bg-pink-500 selection:text-white">
+
+  <!-- Twinkling Star Background Layer -->
+  <div class="stars-bg"></div>
+
+  <!-- ==========================================================================
+       HEADER & NAVIGATION BAR
+       ========================================================================== -->
+  <header class="sticky top-0 z-30 border-b border-white/10 bg-[#090a15]/80 backdrop-blur-xl transition-all">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Logo / Title -->
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 to-pink-500 flex items-center justify-center shadow-lg shadow-pink-500/30 text-xl">
+          🎂
+        </div>
+        <div>
+          <span class="text-xs font-semibold tracking-widest uppercase text-amber-400 block">A Special Celebration For</span>
+          <h1 class="text-lg font-bold text-white tracking-wide flex items-center gap-2">
+            <span class="recipient-name-display text-pink-400 font-extrabold">Sophia</span>
+            <span class="text-xs px-2 py-0.5 rounded-full bg-pink-500/20 text-pink-300 border border-pink-500/30">Birthday VIP</span>
+          </h1>
+        </div>
+      </div>
+
+      <!-- Sequential Page Stepper Navigation -->
+      <nav class="hidden md:flex items-center space-x-1 glass-panel px-3 py-1.5 rounded-full">
+        <button id="nav-step-1" class="step-tab px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide border transition-all flex items-center gap-1.5 bg-amber-500/20 text-amber-300 border-amber-400/50">
+          <span>01</span>
+          <span>Midnight Reveal</span>
+        </button>
+        <button id="nav-step-2" class="step-tab px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide border border-transparent text-gray-400 hover:text-white transition-all flex items-center gap-1.5">
+          <span>02</span>
+          <span>Photo Flashback</span>
+        </button>
+        <button id="nav-step-3" class="step-tab px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide border border-transparent text-gray-400 hover:text-white transition-all flex items-center gap-1.5">
+          <span>03</span>
+          <span>Birthday Wishes</span>
+        </button>
+        <button id="nav-step-4" class="step-tab px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide border border-transparent text-gray-400 hover:text-white transition-all flex items-center gap-1.5">
+          <span>04</span>
+          <span>Cake & Finale</span>
+        </button>
+      </nav>
+
+      <!-- Action Utilities: Audio, Settings, Share -->
+      <div class="flex items-center space-x-2 sm:space-x-3">
+        <!-- Audio Synthesizer Control -->
+        <button id="audio-toggle-btn" class="glass-panel hover:bg-white/10 px-3 py-2 rounded-xl text-xs font-medium text-amber-300 flex items-center gap-2 transition-all group" title="Toggle Birthday Music">
+          <div id="audio-eq-bars" class="flex items-end gap-0.5 h-4 eq-paused">
+            <div class="eq-bar"></div>
+            <div class="eq-bar"></div>
+            <div class="eq-bar"></div>
+            <div class="eq-bar"></div>
+          </div>
+          <span id="audio-btn-label" class="hidden sm:inline">Play Music</span>
+        </button>
+
+        <!-- Customize Settings Button -->
+        <button id="settings-btn" class="glass-panel hover:bg-white/10 p-2 sm:px-3 sm:py-2 rounded-xl text-xs font-medium text-gray-200 flex items-center gap-1.5 transition-all" title="Customize Recipient & Timer">
+          <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+          <span class="hidden sm:inline">Customize</span>
+        </button>
+
+        <!-- Share Link Button -->
+        <button id="share-link-btn" class="glass-panel hover:bg-white/10 p-2 sm:px-3 sm:py-2 rounded-xl text-xs font-medium text-purple-300 flex items-center gap-1.5 transition-all" title="Share this celebration link">
+          <svg class="w-4 h-4 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path></svg>
+          <span class="hidden sm:inline">Share</span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       MAIN CONTENT - SEQUENTIAL PAGES CONTAINER
+       ========================================================================== -->
+  <main class="page-container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+
+    <!-- ========================================================================
+         PAGE 1: THE COUNTDOWN & MIDNIGHT CELEBRATION REVEAL
+         ======================================================================== -->
+    <section id="page-1" class="story-page active-page">
+      <div class="flex flex-col items-center justify-center min-h-[72vh] text-center">
+
+        <!-- Pre-Midnight View (Counting down to 00:00) -->
+        <div id="pre-midnight-card" class="w-full max-w-3xl glass-panel-glow p-8 sm:p-12 rounded-3xl transition-all duration-500">
+          
+          <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-400/30 text-amber-300 text-xs font-semibold tracking-wider uppercase mb-6">
+            <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
+            Awaited Midnight Countdown
+          </div>
+
+          <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight mb-4 font-serif-luxury">
+            Counting Down For <span class="recipient-name-display text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-pink-400 to-purple-400">Sophia</span>
+          </h2>
+          
+          <p class="text-slate-300 text-sm sm:text-base max-w-xl mx-auto mb-10 leading-relaxed font-light">
+            When the clock strikes <span class="text-amber-400 font-mono font-bold">00:00</span>, the magic begins! Prepare for the midnight balloons, fireworks, and heartfelt memories.
+          </p>
+
+          <!-- Digital Clock Grid -->
+          <div class="grid grid-cols-4 gap-3 sm:gap-6 max-w-xl mx-auto mb-10">
+            <!-- Days -->
+            <div class="digit-box p-3 sm:p-5 rounded-2xl">
+              <span id="clock-days" class="block text-3xl sm:text-6xl font-black font-mono text-amber-400">00</span>
+              <span class="text-[10px] sm:text-xs uppercase tracking-wider text-slate-400 font-medium mt-1 block">Days</span>
+            </div>
+            <!-- Hours -->
+            <div class="digit-box p-3 sm:p-5 rounded-2xl">
+              <span id="clock-hours" class="block text-3xl sm:text-6xl font-black font-mono text-pink-400">00</span>
+              <span class="text-[10px] sm:text-xs uppercase tracking-wider text-slate-400 font-medium mt-1 block">Hours</span>
+            </div>
+            <!-- Minutes -->
+            <div class="digit-box p-3 sm:p-5 rounded-2xl">
+              <span id="clock-mins" class="block text-3xl sm:text-6xl font-black font-mono text-purple-400">00</span>
+              <span class="text-[10px] sm:text-xs uppercase tracking-wider text-slate-400 font-medium mt-1 block">Minutes</span>
+            </div>
+            <!-- Seconds -->
+            <div class="digit-box p-3 sm:p-5 rounded-2xl">
+              <span id="clock-secs" class="block text-3xl sm:text-6xl font-black font-mono text-emerald-400">10</span>
+              <span class="text-[10px] sm:text-xs uppercase tracking-wider text-slate-400 font-medium mt-1 block">Seconds</span>
+            </div>
+          </div>
+
+          <!-- Quick Interactive Controls -->
+          <div class="flex flex-wrap items-center justify-center gap-3">
+            <button id="start-10s-countdown-btn" class="px-5 py-3 rounded-xl bg-amber-500/20 border border-amber-400/40 hover:bg-amber-500/30 text-amber-300 text-sm font-semibold transition-all flex items-center gap-2">
+              <span>⏱️</span> 10s Countdown
+            </button>
+            <button id="start-30s-countdown-btn" class="px-5 py-3 rounded-xl bg-purple-500/20 border border-purple-400/40 hover:bg-purple-500/30 text-purple-300 text-sm font-semibold transition-all flex items-center gap-2">
+              <span>⏳</span> 30s Countdown
+            </button>
+            <button id="demo-countdown-btn" class="px-5 py-3 rounded-xl glass-panel hover:bg-white/10 text-slate-200 text-sm font-semibold transition-all flex items-center gap-2">
+              <span>⚡</span> 5s Demo Preview
+            </button>
+            <button id="trigger-midnight-btn" class="px-6 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-pink-500 hover:from-amber-600 hover:to-pink-600 text-white font-bold text-sm tracking-wide shadow-lg shadow-pink-500/25 transition-all transform hover:-translate-y-0.5 flex items-center gap-2">
+              <span>🎉</span> Trigger Midnight 00:00 Now!
+            </button>
+            <button id="release-balloons-now-btn" class="px-5 py-3 rounded-xl bg-pink-600/30 border border-pink-400/40 hover:bg-pink-600/50 text-pink-300 text-sm font-semibold transition-all flex items-center gap-2">
+              <span>🎈</span> Release Balloons
+            </button>
+          </div>
+
+        </div>
+
+        <!-- Post-Midnight Reveal (When timer hits 00:00 - Balloons fly, Music starts) -->
+        <div id="post-midnight-card" class="hidden flex-col items-center justify-center w-full max-w-4xl glass-panel-glow p-8 sm:p-14 rounded-3xl relative overflow-hidden">
+          
+          <div class="absolute -top-12 -right-12 w-48 h-48 bg-pink-500/20 rounded-full blur-3xl pointer-events-none"></div>
+          <div class="absolute -bottom-12 -left-12 w-48 h-48 bg-amber-500/20 rounded-full blur-3xl pointer-events-none"></div>
+
+          <!-- Confetti badge -->
+          <div class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-pink-500/20 border border-pink-400/40 text-pink-300 text-sm font-bold uppercase tracking-widest mb-6 animate-bounce">
+            🎈 Midnight Struck! The Sky is Alive 🎈
+          </div>
+
+          <!-- Grand Birthday Typography -->
+          <h2 class="text-4xl sm:text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-pink-400 to-purple-300 tracking-tight mb-4 font-serif-luxury glow-gold">
+            HAPPY BIRTHDAY
+          </h2>
+          
+          <h3 class="text-3xl sm:text-6xl font-bold text-white mb-6 font-handwriting glow-pink">
+            Dearest <span class="recipient-name-display text-pink-400">Sophia</span>! ✨
+          </h3>
+
+          <p class="text-slate-200 text-base sm:text-xl max-w-2xl mx-auto mb-10 leading-relaxed font-light">
+            Today the universe celebrates your presence! Look up as the balloons rise into the stars. Tap on any floating balloon to pop it!
+          </p>
+
+          <!-- Primary CTA Button to Page 2 -->
+          <div class="flex flex-col sm:flex-row items-center justify-center gap-4 w-full">
+            <button id="btn-goto-page-2" class="btn-celebrate w-full sm:w-auto px-8 py-4 rounded-2xl text-white font-extrabold text-lg tracking-wider flex items-center justify-center gap-3 transition-all transform hover:scale-105">
+              <span>Explore Your Flashback Memories</span>
+              <svg class="w-6 h-6 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
+            </button>
+            <button id="release-more-balloons-btn" class="glass-panel hover:bg-white/10 px-6 py-4 rounded-2xl text-pink-300 font-semibold text-sm transition-all flex items-center gap-2">
+              <span>🎈</span> Release More Balloons
+            </button>
+            <button onclick="triggerConfetti(3)" class="glass-panel hover:bg-white/10 px-6 py-4 rounded-2xl text-amber-300 font-semibold text-sm transition-all flex items-center gap-2">
+              <span>✨</span> More Confetti
+            </button>
+          </div>
+
+          <!-- Balloon pop hint -->
+          <p class="text-xs text-amber-400/80 mt-6 flex items-center gap-1.5">
+            <span>💡 Pro Tip:</span> Click on floating balloons across the screen to hear them pop with sparkling stars!
+          </p>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         PAGE 2: THE FLASHBACK / PHOTO SESSIONS GALLERY
+         ======================================================================== -->
+    <section id="page-2" class="story-page">
+      <div class="space-y-8">
+        
+        <!-- Section Header -->
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-6 border-b border-white/10">
+          <div>
+            <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-purple-500/20 border border-purple-400/30 text-purple-300 text-xs font-semibold tracking-wider uppercase mb-3">
+              📸 Page 02 : Flashback Memories
+            </div>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight font-serif-luxury">
+              Cherished Photo Sessions
+            </h2>
+            <p class="text-slate-400 text-sm sm:text-base mt-2 max-w-xl">
+              A nostalgic walk down memory lane. All memories are displayed below. Click any photo to enlarge, or add new photos anytime!
+            </p>
+            <p id="photos-count-text" class="text-xs text-amber-300 font-medium mt-1"></p>
+          </div>
+
+          <!-- Action buttons -->
+          <div class="flex items-center gap-3">
+            <button id="open-add-photo-btn" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-pink-500 hover:from-amber-600 hover:to-pink-600 text-white font-bold text-xs sm:text-sm tracking-wide shadow-md transition-all flex items-center gap-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+              <span>+ Add / Upload Photos</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- All-Photos Grid (Clean feed, no next/prev tapping required) -->
+        <div id="photos-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 pt-4 pb-8">
+          <!-- Dynamically populated by renderPhotos() -->
+        </div>
+
+        <!-- Bottom Page Flow Controls -->
+        <div class="flex items-center justify-between pt-8 border-t border-white/10">
+          <button id="btn-back-page-1" class="glass-panel hover:bg-white/10 px-5 py-3 rounded-xl text-slate-300 text-sm font-semibold transition-all flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12"></path></svg>
+            <span>Back to Countdown</span>
+          </button>
+
+          <button id="btn-goto-page-3" class="btn-celebrate px-8 py-3.5 rounded-xl text-white font-bold text-sm tracking-wide transition-all transform hover:scale-105 flex items-center gap-2">
+            <span>Read Birthday Wishes</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         PAGE 3: SINGLE HEARTFELT LETTER CARD & LIVE INLINE EDITOR
+         ======================================================================== -->
+    <section id="page-3" class="story-page">
+      <div class="space-y-10">
+        
+        <!-- Section Header -->
+        <div class="text-center max-w-2xl mx-auto space-y-3">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-pink-500/20 border border-pink-400/30 text-pink-300 text-xs font-semibold tracking-wider uppercase">
+            💌 Page 03 : Heartfelt Birthday Letter
+          </div>
+          <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight font-serif-luxury">
+            A Personal Letter From The Heart
+          </h2>
+          <p class="text-slate-400 text-sm sm:text-base">
+            A dedicated, heartfelt letter written especially for you. Only your custom wish is displayed.
+          </p>
+        </div>
+
+        <!-- Single Elegant Birthday Letter Card -->
+        <div id="personal-letter-card" class="max-w-3xl mx-auto glass-panel-glow p-8 sm:p-12 rounded-3xl border border-pink-400/30 relative shadow-2xl space-y-6">
+          <div class="flex items-center justify-between border-b border-white/10 pb-4">
+            <span class="text-xs font-mono uppercase tracking-widest text-amber-400">✨ Special Delivery</span>
+            <span class="text-xs text-pink-300 font-semibold px-3 py-1 rounded-full bg-pink-500/20">Sealed with Love</span>
+          </div>
+
+          <div class="space-y-4 text-left">
+            <h3 class="text-2xl sm:text-3xl font-extrabold text-white font-serif-luxury">
+              Dearest <span class="recipient-name-display text-pink-400 font-extrabold">Sophia</span>,
+            </h3>
+            
+            <p id="letter-content-display" class="font-serif-luxury sm:text-lg text-slate-100 leading-relaxed italic whitespace-pre-line py-2">
+              Wishing you a magnificent birthday filled with endless joy, laughter, and unforgettable moments! May this year bring you all the success and happiness in the world.
+            </p>
+
+            <div id="letter-from-name" class="text-right font-handwriting text-2xl text-pink-400 font-bold pt-4 border-t border-white/10">
+              Your Friend ❤️
+            </div>
+          </div>
+        </div>
+
+        <!-- Live Inline Letter Editor (Only Shows What You Write) -->
+        <div id="letter-editor-box" class="max-w-3xl mx-auto glass-panel p-6 sm:p-8 rounded-3xl border border-white/15 space-y-5">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-pink-500/20 text-pink-400 flex items-center justify-center text-xl">
+              ✍️
+            </div>
+            <div>
+              <h4 class="text-lg font-bold text-white">Customize Your Birthday Wish Letter</h4>
+              <p class="text-xs text-slate-400">Type below to update the letter above instantly. Only what you write will be shown!</p>
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">Your Name (Sender)</label>
+              <input id="inline-letter-author" type="text" placeholder="e.g. Your Friend, Alex, Mom"
+                     class="w-full bg-[#131528] border border-white/15 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-pink-500 transition-all" />
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">Your Birthday Wish Message</label>
+              <textarea id="inline-letter-message" rows="4" placeholder="Write your heartfelt birthday wishes here..."
+                        class="w-full bg-[#131528] border border-white/15 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-pink-500 transition-all resize-none"></textarea>
+            </div>
+
+            <div class="flex items-center justify-end">
+              <button id="save-inline-letter-btn" class="px-6 py-3 rounded-xl bg-gradient-to-r from-pink-500 to-amber-500 hover:from-pink-600 hover:to-amber-600 text-white font-bold text-sm tracking-wide shadow-lg shadow-pink-500/25 transition-all flex items-center gap-2">
+                <span>💾</span> Save Birthday Letter
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom Page Flow Controls -->
+        <div class="flex items-center justify-between pt-8 border-t border-white/10">
+          <button id="btn-back-page-2" class="glass-panel hover:bg-white/10 px-5 py-3 rounded-xl text-slate-300 text-sm font-semibold transition-all flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12"></path></svg>
+            <span>Back to Photos</span>
+          </button>
+
+          <button id="btn-goto-page-4" class="btn-celebrate px-8 py-3.5 rounded-xl text-white font-bold text-sm tracking-wide transition-all transform hover:scale-105 flex items-center gap-2">
+            <span>Cut the Birthday Cake</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         PAGE 4: CAKE CUTTING, CANDLE BLOW & GRAND FINALE
+         ======================================================================== -->
+    <section id="page-4" class="story-page">
+      <div class="flex flex-col items-center justify-center min-h-[72vh] text-center space-y-8">
+        
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/20 border border-amber-400/40 text-amber-300 text-xs font-semibold tracking-wider uppercase">
+          🎂 Page 04 : The Grand Finale & Cake Ceremony
+        </div>
+
+        <div class="max-w-2xl space-y-3">
+          <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight font-serif-luxury">
+            Make A Secret Birthday Wish
+          </h2>
+          <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+            Type your deepest wish in the box below, then blow out the candles to send it to the stars!
+          </p>
+        </div>
+
+        <!-- Interactive 3-Tier Layered Birthday Cake -->
+        <div class="py-6">
+          <div class="cake-container">
+            <div class="cake-plate"></div>
+
+            <!-- Bottom Tier -->
+            <div class="cake-tier-bottom">
+              <div class="cake-icing-drip"></div>
+            </div>
+
+            <!-- Top Tier -->
+            <div class="cake-tier-top">
+              <div class="cake-icing-drip"></div>
+
+              <!-- Candle 1 (Left) -->
+              <div class="candle" style="left: 30px;">
+                <div class="candle-flame"></div>
+                <div class="candle-smoke"></div>
+              </div>
+
+              <!-- Candle 2 (Center) -->
+              <div class="candle" style="left: 80px; height: 44px; top: -39px;">
+                <div class="candle-flame"></div>
+                <div class="candle-smoke"></div>
+              </div>
+
+              <!-- Candle 3 (Right) -->
+              <div class="candle" style="left: 130px;">
+                <div class="candle-flame"></div>
+                <div class="candle-smoke"></div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- Secret Wish Input Box -->
+        <div class="w-full max-w-md mx-auto space-y-2">
+          <label class="block text-xs font-semibold text-amber-300 uppercase tracking-wider text-center">Type Your Secret Birthday Wish:</label>
+          <input id="candle-secret-wish-input" type="text" placeholder="Type your secret wish here before blowing..." 
+                 class="w-full bg-[#131528] border border-amber-400/40 rounded-2xl px-5 py-3 text-sm text-white placeholder-slate-400 focus:outline-none focus:border-amber-400 text-center shadow-inner" />
+        </div>
+
+        <!-- Blow Candles Interaction Button -->
+        <div class="flex flex-col sm:flex-row items-center gap-4">
+          <button id="blow-candles-btn" class="px-8 py-4 rounded-2xl bg-gradient-to-r from-amber-500 to-rose-500 hover:from-amber-600 hover:to-rose-600 text-white font-extrabold text-base tracking-wide shadow-xl shadow-amber-500/25 transition-all transform hover:scale-105 flex items-center gap-2">
+            <span>🎂</span> Make a Wish & Blow Out Candles! 💨
+          </button>
+          <button id="relight-candles-btn" class="glass-panel hover:bg-white/10 px-5 py-4 rounded-2xl text-xs font-semibold text-slate-300 transition-all flex items-center gap-2">
+            <span>🕯️</span> Relight Candles
+          </button>
+        </div>
+
+        <!-- Wish Granted Banner (Revealed when blown) -->
+        <div id="candle-wish-result" class="hidden flex-col items-center glass-panel-glow p-8 rounded-3xl max-w-xl mx-auto space-y-4">
+          <div class="text-4xl animate-bounce">🌟 ✨ 💖</div>
+          <h3 class="text-2xl sm:text-3xl font-extrabold text-amber-300 font-serif-luxury">
+            Your Wish Has Been Heard!
+          </h3>
+          <p id="display-blown-wish" class="text-pink-300 text-lg font-handwriting italic font-semibold px-4 py-2 bg-pink-500/10 rounded-2xl border border-pink-400/20 max-w-lg"></p>
+          <p class="text-slate-200 text-sm leading-relaxed">
+            May this upcoming year be overflowing with health, abundance, unforgettable journeys, and unbounded happiness.
+          </p>
+          <div class="pt-2 flex flex-wrap justify-center gap-3">
+            <button id="share-finale-btn" class="px-6 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold transition-all flex items-center gap-2">
+              <span>📤</span> Share This Memory Link
+            </button>
+            <button id="replay-journey-btn" class="px-6 py-2.5 rounded-xl glass-panel hover:bg-white/10 text-amber-300 text-xs font-bold transition-all flex items-center gap-2">
+              <span>🔄</span> Replay Entire Journey
+            </button>
+          </div>
+        </div>
+
+        <!-- Bottom Page Flow Controls -->
+        <div class="w-full flex items-center justify-between pt-8 border-t border-white/10">
+          <button id="btn-back-page-3" class="glass-panel hover:bg-white/10 px-5 py-3 rounded-xl text-slate-300 text-sm font-semibold transition-all flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12"></path></svg>
+            <span>Back to Wishes</span>
+          </button>
+
+          <button onclick="goToPage(1)" class="glass-panel hover:bg-white/10 px-6 py-3 rounded-xl text-amber-300 text-sm font-bold transition-all flex items-center gap-2">
+            <span>✨ Back to Start</span>
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==========================================================================
+       MODALS
+       ========================================================================== -->
+
+  <!-- Modal 1: Add Custom Photo Memory Modal -->
+  <div id="add-photo-modal" class="fixed inset-0 z-50 modal-overlay hidden items-center justify-center p-4">
+    <div class="glass-panel-glow w-full max-w-lg p-6 sm:p-8 rounded-3xl relative animate-in fade-in duration-200">
+      
+      <button id="close-add-photo-btn" class="absolute top-5 right-5 text-gray-400 hover:text-white p-1 text-xl">✕</button>
+
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-xl">
+          📸
+        </div>
+        <div>
+          <h3 class="text-xl font-bold text-white">Add Photo Flashback</h3>
+          <p class="text-xs text-slate-400">Upload memorable pictures for <span class="recipient-name-display">Sophia</span></p>
+        </div>
+      </div>
+
+      <form id="add-photo-form" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Select Photos (Choose 1 or Multiple)</label>
+          <input id="new-photo-file" type="file" accept="image/*" multiple required
+                 class="w-full text-xs text-slate-300 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-pink-500/20 file:text-pink-300 hover:file:bg-pink-500/30 cursor-pointer" />
+          <div id="photo-upload-preview" class="hidden mt-3 flex flex-wrap gap-2 max-h-36 overflow-y-auto p-2 bg-black/30 rounded-xl border border-white/10"></div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">Memory Title</label>
+          <input id="new-photo-title" type="text" placeholder="e.g. Road Trip to the Coast" required
+                 class="w-full bg-[#131528] border border-white/15 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500" />
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">Date / Era</label>
+          <input id="new-photo-date" type="text" placeholder="e.g. Summer 2023, Last Christmas"
+                 class="w-full bg-[#131528] border border-white/15 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500" />
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">Caption / Memory Story</label>
+          <textarea id="new-photo-caption" rows="2" placeholder="Tell what made this moment unforgettable..."
+                    class="w-full bg-[#131528] border border-white/15 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500 resize-none"></textarea>
+        </div>
+
+        <div class="flex items-center justify-end gap-3 pt-4">
+          <button type="button" id="cancel-add-photo-btn" class="glass-panel hover:bg-white/10 px-5 py-2.5 rounded-xl text-xs font-semibold text-slate-300">
+            Cancel
+          </button>
+          <button type="submit" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-pink-500 hover:from-amber-600 hover:to-pink-600 text-white font-bold text-xs shadow-md">
+            Save Memory
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- Modal 2: Photo Lightbox Modal -->
+  <div id="photo-lightbox-modal" class="fixed inset-0 z-50 modal-overlay hidden items-center justify-center p-4">
+    <div class="glass-panel w-full max-w-3xl rounded-3xl overflow-hidden relative border border-white/20 animate-in fade-in duration-200">
+      <button id="close-lightbox-btn" class="absolute top-4 right-4 z-10 bg-black/50 hover:bg-black/80 text-white w-9 h-9 rounded-full flex items-center justify-center text-lg">✕</button>
+      
+      <div class="max-h-[65vh] bg-black/40 flex items-center justify-center overflow-hidden">
+        <img id="lightbox-img" src="" alt="Memory Fullscreen" class="max-h-[65vh] w-auto max-w-full object-contain" />
+      </div>
+
+      <div class="p-6 bg-[#0f1124]">
+        <div class="flex items-center justify-between mb-2">
+          <h3 id="lightbox-title" class="text-xl font-bold text-white"></h3>
+          <span id="lightbox-date" class="text-xs px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 font-semibold border border-amber-500/30"></span>
+        </div>
+        <p id="lightbox-caption" class="text-sm text-slate-300 leading-relaxed font-light"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 3: Customize Recipient & Timer Modal -->
+  <div id="settings-modal" class="fixed inset-0 z-50 modal-overlay hidden items-center justify-center p-4">
+    <div class="glass-panel-glow w-full max-w-md p-6 sm:p-8 rounded-3xl relative animate-in fade-in duration-200">
+      
+      <button id="close-settings-btn" class="absolute top-5 right-5 text-gray-400 hover:text-white p-1 text-xl">✕</button>
+
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-10 h-10 rounded-xl bg-pink-500/20 text-pink-400 flex items-center justify-center text-xl">
+          ⚙️
+        </div>
+        <div>
+          <h3 class="text-xl font-bold text-white">Customize Celebration</h3>
+          <p class="text-xs text-slate-400">Personalize for your friend, partner, or family</p>
+        </div>
+      </div>
+
+      <form id="settings-form" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">Birthday Person's Name</label>
+          <input id="setting-recipient-name" type="text" placeholder="e.g. Sophia, Alexander, Mom" required
+                 class="w-full bg-[#131528] border border-white/15 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-pink-500" />
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">Target Countdown Date & Time (Optional)</label>
+          <input id="setting-target-datetime" type="datetime-local"
+                 class="w-full bg-[#131528] border border-white/15 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-pink-500" />
+          <span class="text-[11px] text-slate-400 mt-1 block">Leave empty to use automatic 10-second live countdown.</span>
+        </div>
+
+        <div class="pt-4 flex items-center justify-between border-t border-white/10">
+          <button type="button" id="reset-defaults-btn" class="text-xs text-red-400 hover:text-red-300 underline">
+            Reset All Defaults
+          </button>
+          
+          <div class="flex items-center gap-2">
+            <button type="button" id="cancel-settings-btn" class="glass-panel hover:bg-white/10 px-4 py-2 rounded-xl text-xs font-semibold text-slate-300">
+              Cancel
+            </button>
+            <button type="submit" class="px-5 py-2 rounded-xl bg-gradient-to-r from-pink-500 to-amber-500 text-white font-bold text-xs shadow-md">
+              Apply Changes
+            </button>
+          </div>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- Application Script Placeholder -->
+  <script id="app-script">
+/* ==========================================================================
+   Birthday Celebration Website - Interactive Logic & Audio Engine
+   ========================================================================== */
+
+// --- Global Application State ---
+const AppState = {
+  currentPage: 1,
+  recipientName: 'Sophia',
+  targetDate: null,
+  countdownInterval: null,
+  isCelebrated: false,
+  isMusicPlaying: false,
+  balloonSpawnInterval: null,
+  candlesBlown: false,
+  personalLetter: {
+    sender: 'Your Friend',
+    message: 'Wishing you a magnificent birthday filled with endless joy, laughter, and unforgettable moments! May this year bring you all the success and happiness in the world.'
+  },
+  photos: []
+};
+
+// --- Web Audio API Synthesizer (Zero external dependencies) ---
+class BirthdayAudioEngine {
+  constructor() {
+    this.ctx = null;
+    this.isPlaying = false;
+    this.melodyTimeout = null;
+    this.currentNoteIndex = 0;
+  }
+
+  init() {
+    if (!this.ctx) {
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      this.ctx = new AudioContext();
+    }
+    if (this.ctx.state === 'suspended') {
+      this.ctx.resume();
+    }
+  }
+
+  // Happy Birthday Melody Note Frequencies & Durations
+  // C4, C4, D4, C4, F4, E4 ...
+  getNotes() {
+    const C4 = 261.63, D4 = 293.66, E4 = 329.63, F4 = 349.23,
+          G4 = 392.00, A4 = 440.00, B4 = 493.88, C5 = 523.25;
+
+    return [
+      { freq: C4, dur: 0.35, pause: 0.05 },
+      { freq: C4, dur: 0.35, pause: 0.05 },
+      { freq: D4, dur: 0.7,  pause: 0.1 },
+      { freq: C4, dur: 0.7,  pause: 0.1 },
+      { freq: F4, dur: 0.7,  pause: 0.1 },
+      { freq: E4, dur: 1.2,  pause: 0.3 },
+
+      { freq: C4, dur: 0.35, pause: 0.05 },
+      { freq: C4, dur: 0.35, pause: 0.05 },
+      { freq: D4, dur: 0.7,  pause: 0.1 },
+      { freq: C4, dur: 0.7,  pause: 0.1 },
+      { freq: G4, dur: 0.7,  pause: 0.1 },
+      { freq: F4, dur: 1.2,  pause: 0.3 },
+
+      { freq: C4, dur: 0.35, pause: 0.05 },
+      { freq: C4, dur: 0.35, pause: 0.05 },
+      { freq: C5, dur: 0.7,  pause: 0.1 },
+      { freq: A4, dur: 0.7,  pause: 0.1 },
+      { freq: F4, dur: 0.7,  pause: 0.1 },
+      { freq: E4, dur: 0.7,  pause: 0.1 },
+      { freq: D4, dur: 1.1,  pause: 0.3 },
+
+      { freq: B4, dur: 0.4,  pause: 0.05 },
+      { freq: B4, dur: 0.4,  pause: 0.05 },
+      { freq: A4, dur: 0.7,  pause: 0.1 },
+      { freq: F4, dur: 0.7,  pause: 0.1 },
+      { freq: G4, dur: 0.7,  pause: 0.1 },
+      { freq: F4, dur: 1.5,  pause: 0.8 }
+    ];
+  }
+
+  playTone(freq, duration, type = 'triangle') {
+    if (!this.ctx) return;
+    try {
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+
+      osc.type = type;
+      osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
+
+      gain.gain.setValueAtTime(0.001, this.ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.2, this.ctx.currentTime + 0.05);
+      gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + duration);
+
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+
+      osc.start();
+      osc.stop(this.ctx.currentTime + duration);
+    } catch (e) {
+      console.warn("Audio playTone error", e);
+    }
+  }
+
+  playMelody() {
+    if (!this.isPlaying) return;
+    this.init();
+    const notes = this.getNotes();
+
+    const playNext = (index) => {
+      if (!this.isPlaying) return;
+      const note = notes[index];
+      this.playTone(note.freq, note.dur, 'sine');
+      
+      // Warm subtle overtone for bell/chime quality
+      this.playTone(note.freq * 2, note.dur * 0.7, 'triangle');
+
+      const nextIndex = (index + 1) % notes.length;
+      this.melodyTimeout = setTimeout(() => {
+        playNext(nextIndex);
+      }, (note.dur + note.pause) * 1000);
+    };
+
+    playNext(0);
+  }
+
+  startMusic() {
+    this.init();
+    this.isPlaying = true;
+    this.playMelody();
+    updateAudioUI(true);
+  }
+
+  stopMusic() {
+    this.isPlaying = false;
+    if (this.melodyTimeout) {
+      clearTimeout(this.melodyTimeout);
+      this.melodyTimeout = null;
+    }
+    updateAudioUI(false);
+  }
+
+  toggleMusic() {
+    if (this.isPlaying) {
+      this.stopMusic();
+    } else {
+      this.startMusic();
+    }
+  }
+
+  // Sound Effects
+  playPopSound() {
+    this.init();
+    if (!this.ctx) return;
+    const osc = this.ctx.createOscillator();
+    const gain = this.ctx.createGain();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(450, this.ctx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(80, this.ctx.currentTime + 0.1);
+    gain.gain.setValueAtTime(0.3, this.ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.1);
+    osc.connect(gain);
+    gain.connect(this.ctx.destination);
+    osc.start();
+    osc.stop(this.ctx.currentTime + 0.1);
+  }
+
+  playWhoosh() {
+    this.init();
+    if (!this.ctx) return;
+    const osc = this.ctx.createOscillator();
+    const gain = this.ctx.createGain();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(200, this.ctx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(600, this.ctx.currentTime + 0.18);
+    gain.gain.setValueAtTime(0.15, this.ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.18);
+    osc.connect(gain);
+    gain.connect(this.ctx.destination);
+    osc.start();
+    osc.stop(this.ctx.currentTime + 0.18);
+  }
+
+  playChimeFanfare() {
+    this.init();
+    const chords = [523.25, 659.25, 783.99, 1046.50]; // C Major arpeggio
+    chords.forEach((freq, idx) => {
+      setTimeout(() => {
+        this.playTone(freq, 0.8, 'sine');
+      }, idx * 120);
+    });
+  }
+}
+
+const audio = new BirthdayAudioEngine();
+
+// --- Default Seed Data ---
+const DEFAULT_PHOTOS = [
+  {
+    id: 'photo_1',
+    url: 'https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=800&q=80',
+    title: 'The Golden Smiles',
+    date: 'Summer 2024',
+    caption: 'That unforgettable weekend where we couldn\'t stop laughing until our stomachs hurt!'
+  },
+  {
+    id: 'photo_2',
+    url: 'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=800&q=80',
+    title: 'Sunset & Good Vibes',
+    date: 'Autumn Breeze',
+    caption: 'Watching the sky turn into shades of gold and pink, dreaming about the future.'
+  },
+  {
+    id: 'photo_3',
+    url: 'https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?auto=format&fit=crop&w=800&q=80',
+    title: 'Pure Celebration Moment',
+    date: 'Last Birthday',
+    caption: 'Cake everywhere and endless dancing. Another chapter of beautiful memories!'
+  },
+  {
+    id: 'photo_4',
+    url: 'https://images.unsplash.com/photo-1517457373958-b7bdd4587205?auto=format&fit=crop&w=800&q=80',
+    title: 'Together Through It All',
+    date: 'Special Milestone',
+    caption: 'Every moment spent with you is a souvenir of pure happiness.'
+  }
+];
+
+// --- Initialization ---
+function initApp() {
+  try { loadStoredData(); } catch(e) { console.error("loadStoredData error:", e); }
+  try { setupURLParameters(); } catch(e) { console.error("setupURLParameters error:", e); }
+  try { setupEventListeners(); } catch(e) { console.error("setupEventListeners error:", e); }
+  try { startCountdown(); } catch(e) { console.error("startCountdown error:", e); }
+  try { renderPhotos(); } catch(e) { console.error("renderPhotos error:", e); }
+  try { updateLetterUI(); } catch(e) { console.error("updateLetterUI error:", e); }
+  try { updateRecipientNameUI(); } catch(e) { console.error("updateRecipientNameUI error:", e); }
+
+  // Unlock AudioContext on first user interaction to comply with browser autoplay policy
+  const unlockAudio = () => {
+    try { audio.init(); } catch(e) {}
+    window.removeEventListener('click', unlockAudio);
+    window.removeEventListener('touchstart', unlockAudio);
+  };
+  window.addEventListener('click', unlockAudio);
+  window.addEventListener('touchstart', unlockAudio);
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initApp);
+} else {
+  initApp();
+}
+
+// Load stored preferences or fallback to seed
+function loadStoredData() {
+  const savedName = localStorage.getItem('bday_name');
+  if (savedName) AppState.recipientName = savedName;
+
+  const savedPhotos = localStorage.getItem('bday_photos');
+  AppState.photos = savedPhotos ? JSON.parse(savedPhotos) : DEFAULT_PHOTOS;
+
+  const savedLetter = localStorage.getItem('bday_personal_letter');
+  if (savedLetter) {
+    try {
+      AppState.personalLetter = JSON.parse(savedLetter);
+    } catch(e) {}
+  }
+
+  const savedTarget = localStorage.getItem('bday_target_date');
+  if (savedTarget) {
+    const parsed = new Date(savedTarget);
+    if (parsed.getTime() > Date.now()) {
+      AppState.targetDate = parsed;
+    } else {
+      // Past target date - set a fresh 10-second countdown so the live clock ticks
+      const defaultTarget = new Date();
+      defaultTarget.setSeconds(defaultTarget.getSeconds() + 10);
+      AppState.targetDate = defaultTarget;
+    }
+  } else {
+    const defaultTarget = new Date();
+    defaultTarget.setSeconds(defaultTarget.getSeconds() + 10);
+    AppState.targetDate = defaultTarget;
+  }
+}
+
+// Allow URL parameter customisation: ?name=Alex
+function setupURLParameters() {
+  const params = new URLSearchParams(window.location.search);
+  const nameParam = params.get('name');
+  if (nameParam && nameParam.trim()) {
+    AppState.recipientName = nameParam.trim();
+    localStorage.setItem('bday_name', AppState.recipientName);
+  }
+}
+
+function updateRecipientNameUI() {
+  document.querySelectorAll('.recipient-name-display').forEach(el => {
+    el.textContent = AppState.recipientName;
+  });
+  const inputEl = document.getElementById('setting-recipient-name');
+  if (inputEl) inputEl.value = AppState.recipientName;
+}
+
+// --- Page Navigation System ---
+function goToPage(pageNumber) {
+  if (pageNumber < 1 || pageNumber > 4) return;
+  
+  audio.playWhoosh();
+  const currentEl = document.getElementById(`page-${AppState.currentPage}`);
+  const nextEl = document.getElementById(`page-${pageNumber}`);
+
+  if (currentEl) {
+    currentEl.classList.remove('active-page');
+    setTimeout(() => {
+      currentEl.style.display = 'none';
+      if (nextEl) {
+        nextEl.style.display = 'block';
+        setTimeout(() => {
+          nextEl.classList.add('active-page');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }, 30);
+      }
+    }, 250);
+  }
+
+  AppState.currentPage = pageNumber;
+  updateStepIndicator(pageNumber);
+
+  if (pageNumber === 2) {
+    renderPhotos();
+  } else if (pageNumber === 3) {
+    updateLetterUI();
+  }
+
+  // If entering page 4, re-ignite celebration confetti
+  if (pageNumber === 4 && AppState.isCelebrated) {
+    triggerConfetti(2);
+  }
+}
+
+function updateStepIndicator(step) {
+  document.querySelectorAll('.step-tab').forEach((tab, idx) => {
+    const tabStep = idx + 1;
+    if (tabStep === step) {
+      tab.classList.add('bg-amber-500/20', 'text-amber-300', 'border-amber-400/50');
+      tab.classList.remove('text-gray-400', 'border-transparent');
+    } else {
+      tab.classList.remove('bg-amber-500/20', 'text-amber-300', 'border-amber-400/50');
+      tab.classList.add('text-gray-400', 'border-transparent');
+    }
+  });
+}
+
+// --- Countdown Engine & Midnight Celebration ---
+function startCountdown() {
+  if (AppState.countdownInterval) clearInterval(AppState.countdownInterval);
+
+  updateCountdownDisplay();
+  AppState.countdownInterval = setInterval(updateCountdownDisplay, 1000);
+}
+
+function updateCountdownDisplay() {
+  const now = new Date().getTime();
+  const target = AppState.targetDate ? AppState.targetDate.getTime() : now;
+  const difference = target - now;
+
+  const daysEl = document.getElementById('clock-days');
+  const hoursEl = document.getElementById('clock-hours');
+  const minsEl = document.getElementById('clock-mins');
+  const secsEl = document.getElementById('clock-secs');
+
+  if (difference <= 0) {
+    // 00:00 Reached!
+    if (daysEl) daysEl.textContent = '00';
+    if (hoursEl) hoursEl.textContent = '00';
+    if (minsEl) minsEl.textContent = '00';
+    if (secsEl) secsEl.textContent = '00';
+
+    if (!AppState.isCelebrated) {
+      triggerMidnightCelebration();
+    }
+    return;
+  }
+
+  const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const mins = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+  const secs = Math.floor((difference % (1000 * 60)) / 1000);
+
+  if (daysEl) daysEl.textContent = String(days).padStart(2, '0');
+  if (hoursEl) hoursEl.textContent = String(hours).padStart(2, '0');
+  if (minsEl) minsEl.textContent = String(mins).padStart(2, '0');
+  if (secsEl) secsEl.textContent = String(secs).padStart(2, '0');
+}
+
+// Trigger midnight celebratory state
+function triggerMidnightCelebration() {
+  AppState.isCelebrated = true;
+  clearInterval(AppState.countdownInterval);
+
+  // Sound and fanfare
+  audio.playChimeFanfare();
+  setTimeout(() => {
+    audio.startMusic();
+  }, 1200);
+
+  // Hide countdown box smoothly & Reveal Grand Birthday Banner
+  const preMidnightCard = document.getElementById('pre-midnight-card');
+  const postMidnightCard = document.getElementById('post-midnight-card');
+
+  if (preMidnightCard) {
+    preMidnightCard.style.opacity = '0';
+    preMidnightCard.style.transform = 'scale(0.9)';
+    setTimeout(() => {
+      preMidnightCard.style.display = 'none';
+      if (postMidnightCard) {
+        postMidnightCard.classList.remove('hidden');
+        postMidnightCard.classList.add('flex');
+        postMidnightCard.style.animation = 'pageEnter 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards';
+      }
+    }, 400);
+  }
+
+  // Launch celebratory Confetti
+  triggerConfetti(5);
+
+  // Launch Floating Balloons Continuous Stream
+  startBalloonStream();
+}
+
+// Instant trigger for demo/test
+function triggerInstantMidnight() {
+  AppState.targetDate = new Date();
+  triggerMidnightCelebration();
+}
+
+function restartCountdownWithTarget(targetDate) {
+  AppState.isCelebrated = false;
+  if (targetDate) {
+    AppState.targetDate = targetDate;
+  }
+  const preMidnightCard = document.getElementById('pre-midnight-card');
+  const postMidnightCard = document.getElementById('post-midnight-card');
+
+  if (postMidnightCard) {
+    postMidnightCard.classList.add('hidden');
+    postMidnightCard.classList.remove('flex');
+  }
+  if (preMidnightCard) {
+    preMidnightCard.style.display = 'block';
+    preMidnightCard.style.opacity = '1';
+    preMidnightCard.style.transform = 'scale(1)';
+  }
+
+  stopBalloonStream();
+  startCountdown();
+}
+
+function resetCountdown(secondsFromNow = 10) {
+  const newTarget = new Date();
+  newTarget.setSeconds(newTarget.getSeconds() + secondsFromNow);
+  restartCountdownWithTarget(newTarget);
+}
+
+// --- Realistic Floating Balloons System ---
+const BALLOON_COLORS = [
+  { body: '#f43f5e', knot: '#e11d48' }, // Ruby Pink
+  { body: '#f59e0b', knot: '#d97706' }, // Gold Amber
+  { body: '#8b5cf6', knot: '#7c3aed' }, // Royal Purple
+  { body: '#06b6d4', knot: '#0891b2' }, // Cyan
+  { body: '#ec4899', knot: '#db2777' }, // Rose
+  { body: '#10b981', knot: '#059669' }, // Emerald
+  { body: '#3b82f6', knot: '#2563eb' }  // Ocean Blue
+];
+
+function createBalloon() {
+  const container = document.getElementById('balloons-container');
+  if (!container) return;
+
+  const balloon = document.createElement('div');
+  balloon.className = 'balloon';
+
+  const color = BALLOON_COLORS[Math.floor(Math.random() * BALLOON_COLORS.length)];
+  const leftPercent = Math.random() * 86 + 7; // 7% to 93%
+  const duration = Math.random() * 3 + 5; // 5.0 to 8.0 seconds for lively rise
+  const scale = Math.random() * 0.35 + 0.85; // 0.85 to 1.2 scale
+
+  balloon.style.left = `${leftPercent}%`;
+  balloon.style.animationDuration = `${duration}s`;
+
+  balloon.innerHTML = `
+    <div class="balloon-body" style="background: ${color.body}; transform: scale(${scale});">
+      <div class="balloon-highlight"></div>
+      <div class="balloon-knot" style="background: ${color.knot};"></div>
+      <div class="balloon-string"></div>
+    </div>
+  `;
+
+  // Click & Touch to pop balloon with sound & mini particle burst!
+  const onPop = (e) => {
+    e.stopPropagation();
+    popBalloon(balloon);
+  };
+  balloon.addEventListener('click', onPop);
+  balloon.addEventListener('touchstart', onPop, { passive: true });
+
+  container.appendChild(balloon);
+
+  // Cleanup after floating out of screen
+  setTimeout(() => {
+    if (balloon.parentNode === container) {
+      balloon.remove();
+    }
+  }, duration * 1000 + 400);
+}
+
+function popBalloon(balloonEl) {
+  audio.playPopSound();
+  balloonEl.classList.add('popping');
+
+  // Mini confetti burst at balloon position
+  const rect = balloonEl.getBoundingClientRect();
+  const x = (rect.left + rect.width / 2) / window.innerWidth;
+  const y = (rect.top + rect.height / 2) / window.innerHeight;
+
+  if (window.confetti) {
+    window.confetti({
+      particleCount: 25,
+      spread: 60,
+      origin: { x, y },
+      colors: ['#ffd700', '#ff69b4', '#00ffff', '#ffffff']
+    });
+  }
+
+  setTimeout(() => {
+    balloonEl.remove();
+  }, 240);
+}
+
+function startBalloonStream() {
+  stopBalloonStream();
+  // Immediate energetic launch of 10 balloons
+  for (let i = 0; i < 10; i++) {
+    setTimeout(createBalloon, i * 200);
+  }
+  // Ongoing continuous release every 900ms
+  AppState.balloonSpawnInterval = setInterval(createBalloon, 900);
+}
+
+function stopBalloonStream() {
+  if (AppState.balloonSpawnInterval) {
+    clearInterval(AppState.balloonSpawnInterval);
+    AppState.balloonSpawnInterval = null;
+  }
+}
+
+// --- Confetti Launcher ---
+function triggerConfetti(durationSeconds = 3) {
+  if (typeof confetti !== 'function') return;
+
+  const animationEnd = Date.now() + durationSeconds * 1000;
+  const colors = ['#f59e0b', '#ec4899', '#8b5cf6', '#38bdf8', '#fbbf24'];
+
+  const frame = () => {
+    confetti({
+      particleCount: 4,
+      angle: 60,
+      spread: 55,
+      origin: { x: 0, y: 0.75 },
+      colors: colors
+    });
+    confetti({
+      particleCount: 4,
+      angle: 120,
+      spread: 55,
+      origin: { x: 1, y: 0.75 },
+      colors: colors
+    });
+
+    if (Date.now() < animationEnd) {
+      requestAnimationFrame(frame);
+    }
+  };
+  frame();
+}
+
+// --- All-Photos Flashback Gallery Engine (Page 2) ---
+function renderPhotos() {
+  const container = document.getElementById('photos-container') || document.getElementById('photos-grid');
+  const countEl = document.getElementById('photos-count-text');
+  if (!container) return;
+
+  if (countEl) {
+    countEl.textContent = `${AppState.photos.length} special memories saved`;
+  }
+
+  container.innerHTML = '';
+
+  if (!AppState.photos || AppState.photos.length === 0) {
+    container.innerHTML = `
+      <div class="glass-panel p-8 rounded-3xl text-center space-y-3 col-span-full">
+        <p class="text-sm text-slate-300">No photos yet! Click "+ Add / Upload Photos" to add your favorite memories.</p>
+      </div>
+    `;
+    return;
+  }
+
+  const fallbackSvg = "data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22600%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%231e1b4b%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20fill%3D%22%23f472b6%22%20font-family%3D%22sans-serif%22%20font-size%3D%2224%22%20text-anchor%3D%22middle%22%20dy%3D%22.3em%22%3E%E2%9C%A8%20Special%20Memory%20%E2%9C%A8%3C%2Ftext%3E%3C%2Fsvg%3E";
+
+  AppState.photos.forEach((photo, index) => {
+    const card = document.createElement('div');
+    card.className = 'glass-panel p-4 rounded-3xl overflow-hidden shadow-xl border border-white/15 relative space-y-3 text-left transition-all hover:border-pink-400/40 hover:-translate-y-1';
+
+    card.innerHTML = `
+      <div class="w-full rounded-2xl overflow-hidden bg-black/40 aspect-[4/3] sm:aspect-[16/10] relative group cursor-pointer" title="Click to view full photo">
+        <img src="${photo.url}" alt="${escapeHtml(photo.title)}" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" onerror="this.src='${fallbackSvg}'" />
+        <div class="absolute top-3 right-3 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-full text-[11px] font-mono text-white/90">
+          #${index + 1}
+        </div>
+      </div>
+      <div class="space-y-1 px-1">
+        <div class="flex items-center justify-between text-xs text-amber-300 font-medium">
+          <span>${escapeHtml(photo.date || 'Special Memory')}</span>
+          ${photo.isCustom ? `<button onclick="removeCustomPhoto('${photo.id}')" class="text-xs text-red-400 hover:text-red-300 font-medium px-2 py-0.5 rounded-lg bg-red-500/10 hover:bg-red-500/20 transition-all">🗑️ Remove</button>` : ''}
+        </div>
+        <h4 class="text-lg font-bold text-white font-serif-luxury tracking-wide">${escapeHtml(photo.title)}</h4>
+        <p class="text-xs sm:text-sm text-slate-300 italic font-light leading-relaxed">${escapeHtml(photo.caption || '')}</p>
+      </div>
+    `;
+
+    card.querySelector('img').addEventListener('click', () => openPhotoLightbox(photo));
+
+    container.appendChild(card);
+  });
+}
+
+function escapeHtml(str) {
+  if (!str) return '';
+  return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+}
+
+// Helper: Compress/resize image to fit within localStorage without quality loss
+function compressImage(file, maxWidth = 1000, quality = 0.8) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onload = () => {
+        let width = img.width;
+        let height = img.height;
+        if (width > maxWidth) {
+          height = Math.round((height * maxWidth) / width);
+          width = maxWidth;
+        }
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, width, height);
+        resolve(canvas.toDataURL('image/jpeg', quality));
+      };
+      img.onerror = reject;
+      img.src = e.target.result;
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+async function handleAddCustomPhoto(event) {
+  event.preventDefault();
+  const fileInput = document.getElementById('new-photo-file');
+  const titleInput = document.getElementById('new-photo-title');
+  const dateInput = document.getElementById('new-photo-date');
+  const captionInput = document.getElementById('new-photo-caption');
+
+  if (!fileInput.files || fileInput.files.length === 0) {
+    alert('Please select at least one photo to upload!');
+    return;
+  }
+
+  const files = Array.from(fileInput.files);
+  const baseTitle = titleInput.value.trim() || 'Precious Memory';
+  const memoryDate = dateInput.value.trim() || 'Special Day';
+  const memoryCaption = captionInput.value.trim() || 'A beautiful memory to celebrate forever.';
+
+  const submitBtn = event.target.querySelector('button[type="submit"]');
+  if (submitBtn) {
+    submitBtn.disabled = true;
+    submitBtn.textContent = `Saving ${files.length} photo(s)...`;
+  }
+
+  try {
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      const compressedDataUrl = await compressImage(file, 1000, 0.8);
+      const title = files.length > 1 ? `${baseTitle} #${i + 1}` : baseTitle;
+
+      const newPhoto = {
+        id: 'photo_' + Date.now() + '_' + i,
+        url: compressedDataUrl,
+        title: title,
+        date: memoryDate,
+        caption: memoryCaption,
+        isCustom: true
+      };
+
+      AppState.photos.unshift(newPhoto);
+    }
+
+    try {
+      localStorage.setItem('bday_photos', JSON.stringify(AppState.photos));
+    } catch (storageErr) {
+      console.warn("Storage full", storageErr);
+      alert("Photos added to this session! (Browser storage limit reached)");
+    }
+
+    renderPhotos();
+    closeAddPhotoModal();
+    audio.playChimeFanfare();
+    triggerConfetti(2);
+
+    // Reset Form
+    document.getElementById('add-photo-form').reset();
+    const previewContainer = document.getElementById('photo-upload-preview');
+    if (previewContainer) {
+      previewContainer.innerHTML = '';
+      previewContainer.classList.add('hidden');
+    }
+  } catch (err) {
+    console.error("Error processing photos:", err);
+    alert("Could not process one of the photos. Please try again.");
+  } finally {
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Save Memory';
+    }
+  }
+}
+
+function removeCustomPhoto(id) {
+  if (!confirm('Are you sure you want to delete this memory photo?')) return;
+  AppState.photos = AppState.photos.filter(p => p.id !== id);
+  localStorage.setItem('bday_photos', JSON.stringify(AppState.photos));
+  renderPhotos();
+}
+
+function openAddPhotoModal() {
+  const modal = document.getElementById('add-photo-modal');
+  if (modal) {
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+  }
+}
+
+function closeAddPhotoModal() {
+  const modal = document.getElementById('add-photo-modal');
+  if (modal) {
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+  }
+}
+
+// Lightbox Functions
+function openPhotoLightbox(photo) {
+  const modal = document.getElementById('photo-lightbox-modal');
+  const img = document.getElementById('lightbox-img');
+  const title = document.getElementById('lightbox-title');
+  const date = document.getElementById('lightbox-date');
+  const caption = document.getElementById('lightbox-caption');
+  if (modal && photo) {
+    if (img) img.src = photo.url;
+    if (title) title.textContent = photo.title || '';
+    if (date) date.textContent = photo.date || '';
+    if (caption) caption.textContent = photo.caption || '';
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+  }
+}
+
+function closePhotoLightbox() {
+  const modal = document.getElementById('photo-lightbox-modal');
+  if (modal) {
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+  }
+}
+
+// --- Aesthetic Birthday Letter Engine (Page 3) ---
+function updateLetterUI() {
+  const contentEl = document.getElementById('letter-content-display');
+  const fromEl = document.getElementById('letter-from-name');
+  const inlineAuthor = document.getElementById('inline-letter-author');
+  const inlineMsg = document.getElementById('inline-letter-message');
+
+  if (contentEl) contentEl.textContent = AppState.personalLetter.message;
+  if (fromEl) fromEl.textContent = `${AppState.personalLetter.sender} ❤️`;
+  
+  if (inlineAuthor && document.activeElement !== inlineAuthor) {
+    inlineAuthor.value = AppState.personalLetter.sender;
+  }
+  if (inlineMsg && document.activeElement !== inlineMsg) {
+    inlineMsg.value = AppState.personalLetter.message;
+  }
+}
+
+function handleLiveLetterUpdate() {
+  const inlineAuthor = document.getElementById('inline-letter-author');
+  const inlineMsg = document.getElementById('inline-letter-message');
+  const authorVal = inlineAuthor ? inlineAuthor.value.trim() : '';
+  const msgVal = inlineMsg ? inlineMsg.value.trim() : '';
+
+  if (authorVal) AppState.personalLetter.sender = authorVal;
+  if (msgVal) AppState.personalLetter.message = msgVal;
+
+  const contentEl = document.getElementById('letter-content-display');
+  const fromEl = document.getElementById('letter-from-name');
+  if (contentEl && msgVal) contentEl.textContent = msgVal;
+  if (fromEl) fromEl.textContent = `${AppState.personalLetter.sender} ❤️`;
+}
+
+function handleSaveInlineLetter() {
+  handleLiveLetterUpdate();
+  localStorage.setItem('bday_personal_letter', JSON.stringify(AppState.personalLetter));
+  updateLetterUI();
+  audio.playChimeFanfare();
+  triggerConfetti(3);
+
+  const saveBtn = document.getElementById('save-inline-letter-btn');
+  if (saveBtn) {
+    const originalText = saveBtn.innerHTML;
+    saveBtn.innerHTML = '<span>✨</span> Letter Saved with Love!';
+    saveBtn.classList.remove('from-pink-500', 'to-amber-500');
+    saveBtn.classList.add('from-emerald-500', 'to-teal-600');
+    setTimeout(() => {
+      saveBtn.innerHTML = originalText;
+      saveBtn.classList.remove('from-emerald-500', 'to-teal-600');
+      saveBtn.classList.add('from-pink-500', 'to-amber-500');
+    }, 2500);
+  }
+}
+
+// --- Interactive Birthday Cake & Candles with Written Wish (Page 4) ---
+function blowOutCandles() {
+  if (AppState.candlesBlown) return;
+
+  const wishInput = document.getElementById('candle-secret-wish-input');
+  const wishText = wishInput ? wishInput.value.trim() : '';
+
+  AppState.candlesBlown = true;
+  audio.playPopSound();
+
+  const candles = document.querySelectorAll('.candle');
+  candles.forEach((candle, idx) => {
+    setTimeout(() => {
+      candle.classList.add('blown');
+    }, idx * 180);
+  });
+
+  const messageBox = document.getElementById('candle-wish-result');
+  const displayWishEl = document.getElementById('display-blown-wish');
+
+  if (displayWishEl) {
+    if (wishText) {
+      displayWishEl.textContent = `"${wishText}"`;
+    } else {
+      displayWishEl.textContent = `"May all your secret dreams and wishes come true!"`;
+    }
+  }
+
+  if (messageBox) {
+    setTimeout(() => {
+      messageBox.classList.remove('hidden');
+      messageBox.classList.add('flex');
+      audio.playChimeFanfare();
+      triggerConfetti(5);
+    }, 600);
+  }
+
+  const blowBtn = document.getElementById('blow-candles-btn');
+  if (blowBtn) {
+    blowBtn.textContent = '✨ Wish Sent to the Universe! ✨';
+    blowBtn.classList.remove('from-amber-500', 'to-rose-500');
+    blowBtn.classList.add('from-emerald-500', 'to-teal-600');
+  }
+}
+
+function relightCandles() {
+  AppState.candlesBlown = false;
+  document.querySelectorAll('.candle').forEach(c => c.classList.remove('blown'));
+  const messageBox = document.getElementById('candle-wish-result');
+  if (messageBox) {
+    messageBox.classList.add('hidden');
+    messageBox.classList.remove('flex');
+  }
+  const blowBtn = document.getElementById('blow-candles-btn');
+  if (blowBtn) {
+    blowBtn.innerHTML = '<span>🎂</span> Make Wish & Blow Out Candles! 💨';
+    blowBtn.classList.remove('from-emerald-500', 'to-teal-600');
+    blowBtn.classList.add('from-amber-500', 'to-rose-500');
+  }
+}
+
+// --- Customization Settings Modal ---
+function openSettingsModal() {
+  const modal = document.getElementById('settings-modal');
+  if (modal) {
+    const nameInput = document.getElementById('setting-recipient-name');
+    if (nameInput) nameInput.value = AppState.recipientName;
+
+    const targetDateInput = document.getElementById('setting-target-datetime');
+    if (targetDateInput && AppState.targetDate) {
+      try {
+        const d = new Date(AppState.targetDate);
+        d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
+        targetDateInput.value = d.toISOString().slice(0, 16);
+      } catch(e) {}
+    }
+
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+  }
+}
+
+function closeSettingsModal() {
+  const modal = document.getElementById('settings-modal');
+  if (modal) {
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+  }
+}
+
+function handleSaveSettings(event) {
+  event.preventDefault();
+  const nameInput = document.getElementById('setting-recipient-name');
+  const targetDateInput = document.getElementById('setting-target-datetime');
+
+  if (nameInput && nameInput.value.trim()) {
+    AppState.recipientName = nameInput.value.trim();
+    localStorage.setItem('bday_name', AppState.recipientName);
+    updateRecipientNameUI();
+  }
+
+  if (targetDateInput && targetDateInput.value) {
+    const customTarget = new Date(targetDateInput.value);
+    if (!isNaN(customTarget.getTime())) {
+      AppState.targetDate = customTarget;
+      localStorage.setItem('bday_target_date', customTarget.toISOString());
+      restartCountdownWithTarget(customTarget);
+    }
+  } else {
+    resetCountdown(10);
+  }
+
+  closeSettingsModal();
+  audio.playChimeFanfare();
+}
+
+function resetAllToDefaults() {
+  if (!confirm('Reset all photos, wishes, and name back to factory defaults?')) return;
+  localStorage.removeItem('bday_name');
+  localStorage.removeItem('bday_photos');
+  localStorage.removeItem('bday_wishes');
+  localStorage.removeItem('bday_target_date');
+  location.reload();
+}
+
+// Copy Shareable URL
+function copyShareLink() {
+  const url = new URL(window.location.href);
+  url.searchParams.set('name', AppState.recipientName);
+  navigator.clipboard.writeText(url.toString()).then(() => {
+    alert(`Link copied to clipboard!\n${url.toString()}`);
+  }).catch(() => {
+    prompt('Copy this shareable link:', url.toString());
+  });
+}
+
+// --- Audio UI State Sync ---
+function updateAudioUI(isPlaying) {
+  const eqContainer = document.getElementById('audio-eq-bars');
+  const label = document.getElementById('audio-btn-label');
+  if (eqContainer) {
+    if (isPlaying) {
+      eqContainer.classList.remove('eq-paused');
+    } else {
+      eqContainer.classList.add('eq-paused');
+    }
+  }
+  if (label) {
+    label.textContent = isPlaying ? 'Mute Music' : 'Play Music';
+  }
+}
+
+// --- Event Listeners Setup ---
+function setupEventListeners() {
+  // Navigation Buttons
+  document.getElementById('nav-step-1')?.addEventListener('click', () => goToPage(1));
+  document.getElementById('nav-step-2')?.addEventListener('click', () => goToPage(2));
+  document.getElementById('nav-step-3')?.addEventListener('click', () => goToPage(3));
+  document.getElementById('nav-step-4')?.addEventListener('click', () => goToPage(4));
+
+  document.getElementById('btn-goto-page-2')?.addEventListener('click', () => goToPage(2));
+  document.getElementById('btn-goto-page-3')?.addEventListener('click', () => goToPage(3));
+  document.getElementById('btn-goto-page-4')?.addEventListener('click', () => goToPage(4));
+
+  document.getElementById('btn-back-page-1')?.addEventListener('click', () => goToPage(1));
+  document.getElementById('btn-back-page-2')?.addEventListener('click', () => goToPage(2));
+  document.getElementById('btn-back-page-3')?.addEventListener('click', () => goToPage(3));
+
+  // Audio Toggle
+  document.getElementById('audio-toggle-btn')?.addEventListener('click', () => {
+    audio.toggleMusic();
+  });
+
+  // Countdown Timer Controls
+  document.getElementById('start-10s-countdown-btn')?.addEventListener('click', () => resetCountdown(10));
+  document.getElementById('start-30s-countdown-btn')?.addEventListener('click', () => resetCountdown(30));
+  document.getElementById('trigger-midnight-btn')?.addEventListener('click', triggerInstantMidnight);
+  document.getElementById('release-balloons-now-btn')?.addEventListener('click', () => {
+    startBalloonStream();
+    audio.playChimeFanfare();
+  });
+  document.getElementById('release-more-balloons-btn')?.addEventListener('click', () => {
+    startBalloonStream();
+    triggerConfetti(2);
+  });
+  document.getElementById('replay-journey-btn')?.addEventListener('click', () => {
+    goToPage(1);
+    resetCountdown(10);
+    relightCandles();
+  });
+
+  // Photo Sessions Modal & Lightbox
+  document.getElementById('open-add-photo-btn')?.addEventListener('click', openAddPhotoModal);
+  document.getElementById('close-add-photo-btn')?.addEventListener('click', closeAddPhotoModal);
+  document.getElementById('cancel-add-photo-btn')?.addEventListener('click', closeAddPhotoModal);
+  document.getElementById('add-photo-form')?.addEventListener('submit', handleAddCustomPhoto);
+
+  document.getElementById('close-lightbox-btn')?.addEventListener('click', closePhotoLightbox);
+  document.getElementById('photo-lightbox-modal')?.addEventListener('click', (e) => {
+    if (e.target.id === 'photo-lightbox-modal') closePhotoLightbox();
+  });
+
+  // Photo upload preview handler (Multiple Photos)
+  document.getElementById('new-photo-file')?.addEventListener('change', (e) => {
+    const files = Array.from(e.target.files || []);
+    const previewContainer = document.getElementById('photo-upload-preview');
+    if (!previewContainer) return;
+
+    previewContainer.innerHTML = '';
+    if (files.length === 0) {
+      previewContainer.classList.add('hidden');
+      return;
+    }
+
+    previewContainer.classList.remove('hidden');
+
+    files.slice(0, 8).forEach((file) => {
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        const img = document.createElement('img');
+        img.src = ev.target.result;
+        img.className = 'w-16 h-16 object-cover rounded-lg border border-white/25 shadow-sm';
+        previewContainer.appendChild(img);
+      };
+      reader.readAsDataURL(file);
+    });
+
+    if (files.length > 8) {
+      const badge = document.createElement('div');
+      badge.className = 'w-16 h-16 rounded-lg bg-pink-500/20 border border-pink-400/30 flex items-center justify-center text-xs text-pink-300 font-bold';
+      badge.textContent = `+${files.length - 8} more`;
+      previewContainer.appendChild(badge);
+    }
+  });
+
+  // Inline Wish Writing Controls (Page 3)
+  const inlineAuthor = document.getElementById('inline-letter-author');
+  const inlineMsg = document.getElementById('inline-letter-message');
+  inlineAuthor?.addEventListener('input', handleLiveLetterUpdate);
+  inlineMsg?.addEventListener('input', handleLiveLetterUpdate);
+  document.getElementById('save-inline-letter-btn')?.addEventListener('click', handleSaveInlineLetter);
+
+  // Birthday Cake & Candle Wish Blowing (Page 4)
+  document.getElementById('blow-candles-btn')?.addEventListener('click', blowOutCandles);
+  document.getElementById('candle-secret-wish-input')?.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      blowOutCandles();
+    }
+  });
+  document.getElementById('relight-candles-btn')?.addEventListener('click', relightCandles);
+  document.querySelectorAll('.candle').forEach(c => c.addEventListener('click', blowOutCandles));
+
+  // Customization & Settings
+  document.getElementById('settings-btn')?.addEventListener('click', openSettingsModal);
+  document.getElementById('close-settings-btn')?.addEventListener('click', closeSettingsModal);
+  document.getElementById('cancel-settings-btn')?.addEventListener('click', closeSettingsModal);
+  document.getElementById('settings-modal')?.addEventListener('click', (e) => {
+    if (e.target.id === 'settings-modal') closeSettingsModal();
+  });
+  document.getElementById('add-photo-modal')?.addEventListener('click', (e) => {
+    if (e.target.id === 'add-photo-modal') closeAddPhotoModal();
+  });
+  document.getElementById('settings-form')?.addEventListener('submit', handleSaveSettings);
+  document.getElementById('reset-defaults-btn')?.addEventListener('click', resetAllToDefaults);
+  document.getElementById('share-link-btn')?.addEventListener('click', copyShareLink);
+  document.getElementById('share-finale-btn')?.addEventListener('click', copyShareLink);
+}
+
+</script>
+
+  <!-- Global Balloons Overlay Layer (Highest Z-Index) -->
+  <div id="balloons-container" aria-hidden="true"></div>
+</body>
+</html>
